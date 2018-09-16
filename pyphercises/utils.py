@@ -41,7 +41,6 @@ def find_shortest_distance_hash_map(word_map, word_one, word_two):
 
             # get absolute value from the subtraction
             tmp_distance = abs(tmp_index_w1 - tmp_index_w2)
-            print(tmp_distance)
             # Check if another occurence returns a smaller distance
             if (not min_distance or min_distance > tmp_distance):
                 min_distance = tmp_distance
