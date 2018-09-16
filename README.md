@@ -1,6 +1,6 @@
 # Pyphercises
 
-This repo was created to practice problems in Python. Might not contain magic, dragons and cats.
+This repo was created to practice problems in Python. Might not contain magic, dragons or cats.
 
 
 ## Install
