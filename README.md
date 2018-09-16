@@ -24,12 +24,58 @@ It can be case insensitive.
 
 #### How to run?
 
+##### Pre-requisites
+
+  - git
+  - nose
+  - python >= 3.6
+
+##### Basic usage
+
+
 For a very basic test:
-```
+```bash
 $ git clone https://github.com/muawiakh/pyphercises.git
-$ cd pyphercises/pyphercises/
+$ cd pyphercises/
+$ git checkout shortest_distance_words
+$ cd pyphercises/
 $ python3 pyphercises.py
+.. Enter absolute path of file containing list of words> <absolute_path_to_word_file>
 .. Enter word one to find> "<input1>"
 .. Enter word two to find> "<input2>"
 .. Shortest distance between 'input1' and 'input2': <shortest-distance>
 ```
+
+###### Install
+
+```bash
+$ git clone https://github.com/muawiakh/pyphercises.git
+$ cd pyphercises/
+$ git checkout shortest_distance_words
+$ python setup.py install
+```
+
+##### Install using virtualenv
+```bash
+$ git clone https://github.com/muawiakh/pyphercises.git
+$ cd pyphercises/
+$ git checkout shortest_distance_words
+$ virtualenv -p python3.6 testenv
+$ source testenv/bin/activate
+$ python setup.py install
+```
+
+##### Run tests
+```bash
+$ git clone https://github.com/muawiakh/pyphercises.git
+$ cd pyphercises/
+$ git checkout shortest_distance_words
+$ # You can skip virtualenv if everything pre-installed
+$ virtualenv -p python3.6 testenv
+$ source testenv/bin/activate
+$ python setup.py install
+$ nosetests -v
+```
+
+
+

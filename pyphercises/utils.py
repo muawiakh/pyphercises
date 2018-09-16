@@ -64,7 +64,7 @@ def find_shortest_distance(file_path, word_one, word_two):
     # minus 1 because of problem statement
     if min_distance:
         return min_distance - 1
-    elif min_distance - 1 == -1:
+    elif min_distance == 0:
         return "Distance from itself should be Zero"
     else:
         return "Word Not Found Error: One or both of the search words not found"
@@ -123,7 +123,7 @@ def find_shortest_distance_hash_map(file_path, word_one, word_two):
                 word_two_index += 1
 
         # minus 1 because of problem statement
-        if min_distance - 1 == -1:
+        if min_distance == 0:
             return "Distance from itself should be Zero"
         else:
             return min_distance - 1
