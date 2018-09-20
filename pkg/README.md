@@ -139,7 +139,7 @@ NAME                    READY     STATUS    RESTARTS   AGE
 version-app-dep-<uuid>   1/1       Running   0          <age>
 version-app-dep-<uuid>   1/1       Running   0          <age>
 version-app-dep-<uuid>   1/1       Running   0          <age>
-$ # Open browser or another terminal
+$ # Open another terminal
 $ # using watch so we can keep querying the API
 $ watch 'curl <URL from minikube service list>'
 
@@ -151,3 +151,60 @@ $ # You will see pods being Terminated and New pods being created
 $ # to satisfy the 3 replicas state of the system
 ```
 
+### Scenario: Horizontal scaling
+
+Remove any existing pods and service that we might have create:
+```bash
+$ kubectl delete -f versionApp-dep.yaml -f versionApp-svc.yaml
+```
+
+To verify horizontal scaling:
+```bash
+$ kubectl run py-ver-app --image=pyphercises/app:v3.0.0 --replicas=3 --port=5000
+deployment "py-ver-app" created
+$ kubectl expose deploy py-ver-app --port 5000 --type NodePort
+service "py-ver-app" exposed
+$ kubectl get pods
+# Number of py-ver-app-<uuid> pods should be 3
+$ kubectl scale deploy py-ver-app --replicas=4
+deployment "py-ver-app" scaled
+
+$ kubectl get pods
+# Number of py-ver-app-<uuid> pods should be 4
+```
+
+
+### Scenario: Rolling upgrade
+To build the latest version of the pyphercises application:
+```bash
+$ cd /path/to/pyphercises/repo/
+$ make build-latest
+```
+
+To verify that the image is built and hosted on the local Docker repo:
+```bash
+$ docker images | grep pyphercises/app
+pyphercises/app    v3.0.0    <ID>    <Time of creation>    <Size>
+pyphercises/app    v4.0.0    <ID>    <Time of creation>    <Size>
+```
+
+Now to do a rolling upgrade, make sure you are querying the app:
+```bash
+$ # Open another terminal
+$ # using watch so we can keep querying the API
+$ minikube service list
+....
+$ | default     | py-ver-app           | http://<some IP>:<port> |
+...
+$ watch 'curl <URL from minikube service list>'
+```
+
+In the terminal where we were working with the local Docker repo:
+```bash
+$ kubectl set image deploy py-ver-app py-ver-app=pyphercises/app:v4.0.0 --record
+deployment "py-ver-app" image updated
+
+$ # If you are also watching the pods in parallel you will notice
+$ # Pods getting deleted and being re created but the endpoint is always
+$ # responsive
+```
