@@ -1,5 +1,5 @@
 FROM alpine:latest
-ARG APPVERSION=v1.0.0
+ARG APPVERSION=release-workflow
 LABEL maintainer "amuawiakhan@gmail.com"
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
@@ -9,7 +9,7 @@ RUN apk --update add python3 git python3-dev libstdc++ \
 
 WORKDIR /usr/src/app/pyphercises
 
-RUN git checkout tags/${APPVERSION} -b ${APPVERSION} \
+RUN git checkout ${APPVERSION} \
     && python3 setup.py install
 
 # When developing with Python in a docker container, we are using PYTHONBUFFERED

@@ -4,7 +4,7 @@ DC := docker
 DC_NAME := versionApp
 NAME := pyphercises/app
 TAG_LATEST := $(shell git tag -l --sort=-v:refname | head -n 1)
-TAG_OLDEST := $(shell git tag -l --sort=v:refname | head -n 1)
+TAG_OLDEST := v3.0.0
 IMG_LATEST := ${NAME}:${TAG_LATEST}
 IMG_OLDEST := ${NAME}:${TAG_OLDEST}
 

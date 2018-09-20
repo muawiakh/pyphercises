@@ -71,6 +71,33 @@ $ curl http://localhost:5000 | jq || curl http://localhost:5000
 {
   "description": "First cut app",
   "name": "BaseApp",
-  "version": "2.0.0"
+  "version": "4.0.0"
 }
+```
+
+
+##### Install and run with Docker
+```bash
+$ git clone https://github.com/muawiakh/pyphercises.git
+$ cd pyphercises/
+$ git checkout release-workflow
+$ docker build -t pyphercises/app:latest .
+$ docker run -d -p 5000:5000 --name versionApp pyphercises/app:latest
+$ # TO test
+$ # Open Browser or in another terminal
+$ curl http://localhost:5000 | jq || curl http://localhost:5000
+```
+
+##### Install and run with Docker
+```bash
+$ git clone https://github.com/muawiakh/pyphercises.git
+$ cd pyphercises/
+$ git checkout release-workflow
+$ make build-latest
+$ make run
+$ # TO test
+$ # Open Browser or in another terminal
+$ curl http://localhost:5000 | jq || curl http://localhost:5000
+$ # If you want to stop the app
+$ make stop
 ```
