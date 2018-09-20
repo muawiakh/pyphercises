@@ -71,6 +71,6 @@ $ curl http://localhost:5000 | jq || curl http://localhost:5000
 {
   "description": "First cut app",
   "name": "BaseApp",
-  "version": "1.0.0"
+  "version": "2.0.0"
 }
 ```
