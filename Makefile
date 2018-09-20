@@ -12,7 +12,8 @@ IMG_OLDEST := ${NAME}:${TAG_OLDEST}
 # Main targets #
 ################
 help: ## Show this help
-	@echo "Usage: 'make build-oldest' OR 'make build-latest'"
+	@echo "Usage: 'make build-oldest', 'make build-latest'\
+	, 'make run' or 'make stop'"
 
 build-oldest:
 	@$(DC) build -t ${IMG_OLDEST} --build-arg APPVERSION=${TAG_OLDEST} .
