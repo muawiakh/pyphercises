@@ -173,6 +173,32 @@ $ kubectl get pods
 # Number of py-ver-app-<uuid> pods should be 4
 ```
 
+```bash
+$ # Cleanup
+$ kubectl delete svc py-ver-app
+$ kubectl delete deployment py-ver-app
+```
+
+You can also reproduce this using the manifest.yaml files:
+
+```bash
+$ cd /path/to/pyphercises/pkg/k8s/
+$ kubectl apply -f versionApp-svc.yaml
+$ kubectl apply -f versionApp-dep.yaml
+
+$ # In another terminal
+$ minikube service list
+....
+$ | default     | version-app-svc      | http://<IP>:<port> |
+$ watch 'curl <URL from minikube service list>'
+
+$ kubectl scale deploy version-app-dep --replicas=5
+$ # Watch the pods in another terminal
+$ kubectl get pods -w
+$ # You will see two more pods being created to meet the replicas=5
+$ # State
+```
+
 
 ### Scenario: Rolling upgrade
 To build the latest version of the pyphercises application:
@@ -207,4 +233,28 @@ deployment "py-ver-app" image updated
 $ # If you are also watching the pods in parallel you will notice
 $ # Pods getting deleted and being re created but the endpoint is always
 $ # responsive
+
+$ # Cleanup
+$ kubectl delete svc py-ver-app
+$ kubectl delete deployment py-ver-app
+```
+
+You can also reproduce this using the manifest.yaml files:
+
+```bash
+$ cd /path/to/pyphercises/pkg/k8s/
+$ kubectl apply -f versionApp-svc.yaml
+$ kubectl apply -f versionApp-rc.yaml
+
+$ # verify
+$ kubectl get pods
+$ # List of 3 replicas of version-app-dep-<uuid>
+
+$ # In another terminal
+$ minikube service list
+....
+$ | default     | version-app-svc      | http://<IP>:<port> |
+$ watch 'curl <URL from minikube service list>'
+
+$ kubectl rolling-update version-app-dep --image=pyphercises/app:v4.0.0
 ```
