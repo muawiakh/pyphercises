@@ -120,3 +120,34 @@ $ # | default     | **version-app-svc    | http://<some IP>:<Port>     |
 $ # Open browser or another terminal
 $ curl <URL> | jq || curl <URL>
 ```
+
+### Scenario: HA and fault tolerance
+
+By default our application has 3 replicas, as specified in the 
+`versionApp-dep.yaml` file.
+
+```yaml
+replicas: 3
+```
+
+The replicas provide HA and the replication controller provides
+fault tolerance. To test:
+
+```bash
+$ kubectl get pods
+NAME                    READY     STATUS    RESTARTS   AGE
+version-app-dep-<uuid>   1/1       Running   0          <age>
+version-app-dep-<uuid>   1/1       Running   0          <age>
+version-app-dep-<uuid>   1/1       Running   0          <age>
+$ # Open browser or another terminal
+$ # using watch so we can keep querying the API
+$ watch 'curl <URL from minikube service list>'
+
+$ # Introduce failure, delete any of the above displayed pods
+$ kubectl delete pod version-app-dep-<uuid>
+$ # You will notice the App is responsive during the deletion
+$ kubectl get pods
+$ # You will see pods being Terminated and New pods being created
+$ # to satisfy the 3 replicas state of the system
+```
+
