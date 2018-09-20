@@ -1,14 +1,24 @@
+import sys
+
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
+
+if sys.version_info < (3, 6):
+    sys.exit('Please use Python version 3.6 or higher.')
+
+# get the version
+version = {}
+with open('pyphercises/version.py') as f:
+    exec(f.read(), version)
 
 config = {
     'description': 'Python exercises for everyone',
     'author': 'muawiakh',
     'url': 'https://github.com/muawiakh/pyphercises.git',
     'author_email': 'amuawiakhan@gmail.com',
-    'version': '1.0.0',
+    'version': version['__version__'],
     'install_requires': ['flask'],
     'packages': [],
     'scripts': [],
