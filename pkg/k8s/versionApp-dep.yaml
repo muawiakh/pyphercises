@@ -1,0 +1,20 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: version-app-dep
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: version-app
+    spec:
+      containers:
+      - name: version-app
+        image: pyphercises/app:v3.0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+          name: vapp-port
