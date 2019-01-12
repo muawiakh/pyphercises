@@ -37,9 +37,8 @@ class WeatherTestCase(unittest.TestCase):
     def test_weather_api_default(self):
         """Test weather endpoint with default values"""
         res = self.client().get('/api/v1/weather')
-        from pyphercises.constants import DEFAULT_CITY
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(json.loads(res.data)["city"].lower(), DEFAULT_CITY.lower())
+        self.assertEqual(res.status_code, 400)
+        self.assertEqual(json.loads(res.data)["error"], "Too few parameters")
 
     def test_invalid_metric_parameter(self):
         """Test invalid parameter for units"""

@@ -19,9 +19,7 @@ config = {
     'url': 'https://github.com/muawiakh/pyphercises.git',
     'author_email': 'amuawiakhan@gmail.com',
     'version': version['_app_version_'],
-    'install_requires': ['flask', 'flask-restful', 'requests', 'nose'],
-    'packages': [],
-    'scripts': [],
+    'install_requires': ['flask', 'flask-restful', 'requests'],
     'name': 'pyphercises'
 }
 
